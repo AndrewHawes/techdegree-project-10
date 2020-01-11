@@ -7,6 +7,7 @@ from flask_restful import (
 import models
 
 todo_fields = {
+    'id': fields.Integer,
     'name': fields.String,
     'completed': fields.Boolean
 }

@@ -27,11 +27,12 @@ def my_todos():
 
 
 if __name__ == '__main__':  # pragma: no cover
-    models.initialize()
-    if not models.Todo.select():
-        with open('./mock/todos.json', 'r') as f:
-            data = json.load(f)
-        for todo in data:
-            models.Todo.create(name=todo['name'])
+    if not models.DATABASE.table_exists('todo'):
+        models.initialize()
+        if not models.Todo.select():
+            with open('./mock/todos.json', 'r') as f:
+                data = json.load(f)
+            for todo in data:
+                models.Todo.create(name=todo['name'])
 
     app.run(debug=config.DEBUG, host=config.HOST, port=config.PORT)

@@ -11,7 +11,7 @@ class Todo(Model):
         database = DATABASE
 
 
-def initialize():
+def initialize():  # pragma: no cover
     DATABASE.connect(reuse_if_open=True)
     DATABASE.create_tables([Todo], safe=True)
     DATABASE.close()

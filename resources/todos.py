@@ -41,18 +41,18 @@ class TodoList(Resource):
 
 class Todo(Resource):
     @marshal_with(todo_fields)
-    def get(self, id):
-        return models.Todo.get(models.Todo.id == id), 200
+    def get(self, todo_id):
+        return models.Todo.get(models.Todo.id == todo_id), 200
 
     @marshal_with(todo_fields)
-    def put(self, id):
+    def put(self, todo_id):
         args = parser.parse_args()
-        query = models.Todo.update(**args).where(models.Todo.id == id)
+        query = models.Todo.update(**args).where(models.Todo.id == todo_id)
         query.execute()
-        return models.Todo.get(models.Todo.id == id), 200
+        return models.Todo.get(models.Todo.id == todo_id), 200
 
-    def delete(self, id):
-        query = models.Todo.delete().where(models.Todo.id == id)
+    def delete(self, todo_id):
+        query = models.Todo.delete().where(models.Todo.id == todo_id)
         query.execute()
         return '', 204
 
@@ -67,6 +67,6 @@ api.add_resource(
 )
 api.add_resource(
     Todo,
-    '/todos/<int:id>',
+    '/todos/<int:todo_id>',
     endpoint='todo'
 )
